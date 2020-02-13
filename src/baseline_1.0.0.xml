@@ -1,0 +1,84 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="liquibase" id="1581592070891-1">
+        <createTable tableName="CLIENTI">
+            <column name="COD_CLIENTE" type="NUMBER(*, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RAGIONESOCIALE" type="VARCHAR2(64 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INDIRIZZO" type="VARCHAR2(128 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CAP" type="VARCHAR2(5 BYTE)"/>
+            <column name="CITTA" type="VARCHAR2(45 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PROVINCIA" type="VARCHAR2(10 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TELEFONO" type="VARCHAR2(45 BYTE)"/>
+            <column name="EMAIL" type="VARCHAR2(45 BYTE)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase" id="1581592070891-2">
+        <createView fullDefinition="true" viewName="VIEW_CLIENTI">CREATE OR REPLACE FORCE VIEW VIEW_CLIENTI (COD_CLIENTE, RAGIONESOCIALE, INDIRIZZO, CAP, CITTA, PROVINCIA, TELEFONO, EMAIL) AS SELECT "COD_CLIENTE","RAGIONESOCIALE","INDIRIZZO","CAP","CITTA","PROVINCIA","TELEFONO","EMAIL"
+FROM 
+CLIENTI</createView>
+    </changeSet>
+    <changeSet author="liquibase" id="1581592070891-3">
+        <createTable tableName="ARTICOLI">
+            <column name="ID_ARTICOLO" type="NUMBER(*, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIZIONE" type="VARCHAR2(128 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UNITA_DI_MISURA" type="VARCHAR2(3 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PREZZO" type="FLOAT(22)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IVA" type="NUMBER(*, 0)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase" id="1581592070891-4">
+        <createTable tableName="ORDINE_RIGA">
+            <column name="ID_RIGA" type="NUMBER(*, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ID_ORDINE" type="NUMBER(*, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ID_ARTICOLO" type="NUMBER(*, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="QUANTITA" type="NUMBER(5, 2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase" id="1581592070891-5">
+        <createTable tableName="ORDINI">
+            <column name="ID_ORDINE" type="NUMBER(*, 0)">
+                <constraints primaryKey="true" primaryKeyName="PK_ORDINI"/>
+            </column>
+            <column name="ID_CLIENTE" type="NUMBER(*, 0)"/>
+            <column name="DATA_ORDINE" type="date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase" id="1581592070891-6">
+        <createIndex indexName="ARTICOLI_INDEX1" tableName="ARTICOLI" unique="true">
+            <column name="ID_ARTICOLO"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase" id="1581592070891-7">
+        <createIndex indexName="PK_CLIENTI_INDEX" tableName="CLIENTI" unique="true">
+            <column name="COD_CLIENTE"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
